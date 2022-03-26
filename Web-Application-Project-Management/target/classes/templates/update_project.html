@@ -1,0 +1,60 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Index</title>
+<link th:href="@{/standard.css}" rel="stylesheet" />
+</head>
+<body onscroll="myFunction()">
+
+
+<div id="navbar">
+		<a class="active" th:href="@{/}">Home</a>
+		<a	th:href="@{/showNewProjectForm}">Add Project</a>
+		<a	th:href="@{/listProject}">View project</a>
+		<a  th:href="@{/logout}"> Logout</a>
+
+		<div id="welcome">
+			Welcome <span sec:authentication="principal.username"> User</span>
+		<span	sec:authorize="isAuthenticated()"></span>
+		
+		
+		</div>
+		
+
+
+	</div>
+
+
+<h1>Update Project</h1>
+ 
+<h2>Update the values in this project</h2>
+<form action="#" th:action="@{/saveProject}" th:object="${project}" method="POST">
+<input type="hidden" th:field="*{id}" />
+
+
+<input type="text" th:field="*{projectName}" placeholder="Project name">
+<input type="text" th:field="*{projectYear}" placeholder="Project year">
+<input type="text" th:field="*{projectAutorName}" placeholder="Projekt author name">
+<input type="text" th:field="*{projectAutorLastName}" placeholder="Project author lastname">
+<button type="submit">Update project</button>
+</form>
+
+
+
+<h2>Update the project values.(A new project will be added with the entered values.)</h2>
+<form action="#" th:action="@{/saveProject}" th:object="${project}" method="POST">
+
+
+<input type="text" th:field="*{projectName}" placeholder="Project Name">
+<input type="text" th:field="*{projectYear}" placeholder="Project Year">
+<input type="text" th:field="*{projectAutorName}" placeholder="Project author name">
+<input type="text" th:field="*{projectAutorLastName}" placeholder="Project author lastname">
+<button type="submit">Update project</button>
+</form>
+
+
+</body>
+</html>

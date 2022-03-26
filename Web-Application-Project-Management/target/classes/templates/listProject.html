@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="jquery-3.5.1.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link th:href="@{/standard.css}" rel="stylesheet" />
+<meta charset="utf-8">
+<title>Insert title here</title>
+
+
+</head>
+
+<body onscroll="myFunction()">
+	<div id="navbar">
+		<a th:href="@{/}">Home</a> <span sec:authorize="hasRole('ADMIN')"><a
+			th:href="@{/showNewProjectForm}">Add project</a> </span> <a
+			class="active" th:href="@{/listProject}">View project</a> <span
+			sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></span>
+
+		<div id="welcome">
+			Welcome <span sec:authentication="principal.username"> User</span>
+		</div>
+	</div>
+	<h1>Project List</h1>
+
+
+
+
+	<form id="search" th:action="@{/listProject}" method="GET">
+
+		<input id="txtSearch" type="text" name="keyword">
+		<button type="submit">Search</button>
+
+	</form>
+
+
+
+
+	<div id="tablec">
+		<table id="table1" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Project name</th>
+					<th>Project year</th>
+					<th>Project author name</th>
+					<th>Project author lastname</th>
+					<th>Project date</th>
+					<span sec:authorize="hasRole('ADMIN')">
+						<th>Upload Project</th>
+						<th>Upload Picture</th>
+						<th>Actions</th>
+				</tr>
+				</span>
+			</thead>
+
+			<tbody>
+				<tr th:each="Project: ${listProject}">
+					<td th:text="${Project.projectName}"></td>
+					<td id=year th:text="${Project.projectYear}"></td>
+					<td th:text="${Project.projectAutorName}"></td>
+					<td th:text="${Project.projectAutorLastName}"></td>
+					<td th:text="${Project.date}"></td>
+				<span sec:authorize="hasRole('ADMIN')">
+						<td>
+							<form action="/uploadDb" method="post"
+								enctype="multipart/form-data">
+								<input type="file" name="files" multiple> <input
+									type="submit" value="Upload Files"></input>
+							</form>
+					</td>
+						<td><form action="/upload2" method="post"
+								enctype="multipart/form-data">
+								<input type="file" name="picture" multiple> <input
+									type="submit" value="Upload Picture"><br> <a
+									th:href="@{/pic}">take picture</a>
+							</form></td>
+						<td><a th:href="@{/showFormForUpdate/{id}(id=${Project.id})}">Update</a>
+							<a th:href="@{/deleteProject/{id}(id=${Project.id})}">Delete</a></td> </span>
+				</tr>
+			</tbody>
+		
+
+		</table>
+
+
+	</div>
+<div>
+<script>
+		const navbar = document.getElementById("navbar");
+		const sticky = navbar.offsetTop;
+
+		function myFunction() {
+			if (window.scrollY >= sticky) {
+				navbar.classList.add("sticky")
+			} else {
+				navbar.classList.remove("sticky");
+			}
+		}
+	</script>
+</div>
+
+	<div id="graphscript">
+		<div id="container"></div>
+
+		<script type="text/javascript">
+			$.ajax({
+
+				url : "linechartdata",
+
+				success : function(result) {
+					
+					var category = JSON.parse(result).categories;
+					var series = JSON.parse(result).series;
+					drawLineChart(category, series);
+				
+
+				}
+			});
+
+		
+			function drawLineChart(category, series) {
+				Highcharts.chart('container',
+						{
+							chart : {
+								type : 'line',
+								width : 500
+							},
+
+							title : {
+								text : 'Project name and Project count'
+							},
+
+							xAxis : {
+								categories : category
+							},
+
+							tooltip : {
+								formatter : function() {
+									return '<strong>' + this.x + ': </strong>'
+											+ this.y;
+								}
+							},
+
+							series : [ {
+								data : series
+							} ]
+						});
+			}
+		</script>
+
+	</div>
+
+
+
+
+
+</body>
+</html>

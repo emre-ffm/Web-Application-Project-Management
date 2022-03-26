@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Add new project</title>
+<link th:href="@{/standard.css}" rel="stylesheet" />
+</head>
+
+
+<body>
+	<div id="navbar">
+		<a th:href="@{/}">Home</a> <a class="active"
+			th:href="@{/showNewProjectForm}">Add project</a> 
+			<a th:href="@{/listProject}">View project</a>
+
+
+		<div id="welcome">
+			Welcome <span sec:authentication="principal.username"> User</span>
+		</div>
+
+
+		<span sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></span>
+
+	</div>
+
+	<h1>Add new project</h1>
+	
+
+
+
+
+
+
+	<div>
+
+
+
+		<form action="#" th:action="@{/saveProject}" th:object="${project}"
+			method="POST">
+
+			<table border=1>
+				<tr>
+					<th>Project name</th>
+					<th>Project year</th>
+					<th>Project author name</th>
+					<th>Project author lastname</th>
+
+
+				</tr>
+				<tr>
+					<td><input type="text" th:field="*{projectName}"
+						placeholder="Projekt Name"></td>
+					<td><input type="text" th:field="*{projectYear}"
+						placeholder="Projekt Jahr"></td>
+					<td><input type="text" th:field="*{projectAutorName}"
+						placeholder="Projekt Autor Vorname"></td>
+					<td><input type="text" th:field="*{projectAutorLastName}"
+						placeholder="Projekt Autor Nachname"></td>
+
+
+
+				</tr>
+
+			</table>
+			<button type="submit">Add Project</button>
+		</form>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Insert title here</title>
+
+
+</head>
+<body>
+
+
+<div id="navbar">
+		<a class="active" th:href="@{/}">Home</a>
+		 <a	th:href="@{/showNewProjectForm}">Add project</a> 
+		 <a	th:href="@{/listProject}">View project</a>
+
+
+	
+		
+
+
+	</div>
+	
+<h1>User Login Page</h1>
+
+ <form th:action="@{/login}" method="POST">
+
+
+<div>
+<label for="username">Username: </label>
+ <input type="text" id="username" name="username" placeholder="Enter Email" autofocus="autofocus"/>
+<label for="password">Password: </label>
+<input type="password" id="password" name="password" placeholder="Enter Password" autofocus="autofocus"/>
+<button type="submit" name="login-submit" id="login-submit">Login</button>
+</div> 
+
+<div>
+<span>New User? <a href="/" th:href="@{/registration}">Register here</a></span>
+</div>
+</form>
+
+<style>
+body {
+	margin: 0;
+	font-size: 28px;
+}
+
+.header {
+	background-color: #f1f1f1;
+	padding: 30px;
+	text-align: center;
+}
+
+#navbar {
+	overflow: hidden;
+	background-color: #333;
+}
+
+#navbar a {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+#navbar a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+#navbar a.active {
+	background-color: #4CAF50;
+	color: white;
+}
+#navbar input{
+	
+	float: right;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 14px;
+}
+	
+#navbar button{
+	
+	float: right;
+	text-align:center;
+	font-size: 17px;
+	margin-top: 15px;
+}	
+
+.content {
+	padding: 16px;
+}
+
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%
+}
+
+.sticky+.content {
+	padding-top: 60px;
+}
+
+aside {
+	background-color: blue;
+	width: 50%;
+	position: fixed;
+}
+
+aside form input {
+	font-size: 100%;
+}
+
+</style>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Registration and Login App</title>
+
+<link th:href="@{/standard.css}" rel="stylesheet" />
+
+</head>
+<body onscroll="myFunction()">
+
+	<div id="navbar">
+		<a class="active" th:href="@{/}">Home</a> <span
+			sec:authorize="hasRole('ADMIN')"><a
+			th:href="@{/showNewProjectForm}">Add project </a></span> <a
+			th:href="@{/listProject}">View project</a>
+
+
+
+
+
+
+		<div id="welcome">
+			Welcome <span sec:authentication="principal.username"> User</span>
+		</div>
+		<span sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></span>
+
+
+
+	</div>
+
+	<br>
+	<br>
+
+	<div class="content" style="color: brown;">
+		<h3>Inventarsystem</h3>
+		<p>Was kann ich alles auf dieser Website durchführen?</p>
+		<p>Diese Seite soll ihnen die Möglichkeit anbieten,dass Sie sicher
+			und mit wenig aufwand, die Projektarbeiten und Abschlussarbeiten
+			aufnehmen und abrufen können.</p>
+		<p>Sie können auch die Projekte umändern oder löschen</p>
+		<p>Sie haben die Möglichkeit sich zu registrieren und mit Ihrem
+			Daten anzumelden.</p>
+		<p>Sie können die eingetragenen Projekte und Abschlussarbeiten per
+			Suchfunktion suchen.</p>
+
+		<p>Ihnen wird eine Statistik mit den vorhandenen Projekten und namen
+			angezeigt.</p>
+		<p>Sie können Datein in einen Lokalen, vorbestimmten Ordner
+			hochladen</p>
+
+		<p>Der User kann auch ein Foto von sich, in ein Ordner oder in eine Datenbank
+			hochladen,falls der User kein eigenes Foto hat,so kann der User ein Foto
+			von sich auf der Webseite aufnehmen und herunterladen.</p>
+		<p>Mit User rechten haben Sie leider kein Zugriff auf alle
+			Funktionen.</p>
+	</div>
+<div>
+<script>
+		const navbar = document.getElementById("navbar");
+		const sticky = navbar.offsetTop;
+
+		function myFunction() {
+			if (window.scrollY >= sticky) {
+				navbar.classList.add("sticky")
+			} else {
+				navbar.classList.remove("sticky");
+			}
+		}
+	</script>
+</div>
+
+</body>
+</html>
